@@ -1,0 +1,197 @@
+Que 1
+
+console.log("alue of Age is :" , age);
+
+var age = 20;
+
+console.log("alue of Age is :" , age);
+
+
+Value of Age is : undefined
+Value of Age is : 20
+
+
+Que2
+
+age = 100;
+
+console.log("Value of age is" , age);
+
+let age = 30 ;
+
+Cannot acess age before initialization.
+
+
+Que3 
+
+myFunc();
+
+var myFunc = functoin (){
+    console.log("First");
+
+};
+
+myFunc();
+
+function myFunc(){
+    console.log("Second");
+}
+
+myFunc;
+
+Second 
+First 
+First
+
+Que4 
+
+var variable = 10;
+
+(() => {
+    console.log(variable);
+
+    variable = 20;
+    console.log(variable);
+})(); //iife
+
+console.log(variable);
+var variable = 30;
+console.log(variable);
+
+10
+20
+20
+30
+
+
+Que5 
+
+foo = 30;
+console.log("FOO", foo);
+
+var foo = 100;
+
+console.log("FOO" , foo);
+
+
+FOO : 30
+FOO : 100
+
+QUE6
+
+variable = 10;
+
+(()=> {
+    foo = 100;
+    console.log(variable);
+    var foo = 100;
+    variable = 20;
+    console.log(variable);
+})();
+
+cnosole.log(foo);
+console.log(variable);
+var variable = 30;
+
+Reference Error
+
+
+QUE7
+for(var i = 0; i<10; i++){
+    setTimeout(()=> console.log(i), 0);
+}
+  
+10
+10
+10
+10
+10
+10
+10
+10
+10
+10
+
+if use let it prints 0 to 9
+
+
+QUE8 
+
+var fullname = "Mac";
+
+var obj = {
+    fullname: "Hacked Full Name",
+
+    prop: {
+        fullname: "Inside Prop",
+        getFullname: function () {
+            return this.fullname; // 'this' refers to `prop`
+        },
+    },
+
+    getFullname: function () {
+        return this.fullname; // 'this' refers to `obj`
+    },
+
+    getFullnameV2: () => this.fullname, // 'this' refers to the outer context, which is `window` or `global`
+
+    getFullnameV3: (function () {
+        return this.fullname; // 'this' refers to `window` or `global` in non-strict mode
+    })(),
+};
+
+console.log(obj.prop.getFullname()); // Output: "Inside Prop"
+console.log(obj.getFullname());      // Output: "Hacked Full Name"
+console.log(obj.getFullnameV2());   // Output: "Mac" (from global context)
+console.log(obj.getFullnameV3());   // Output: "Mac" (from global context in non-strict mode)
+
+Que 9
+
+const mac = {
+    name : "Mac Jag",
+    sayName: function (){
+        console.log(this.name);
+
+    },
+};
+
+const jhon {
+    name : "Jhon Doe",
+    sayName: function (){
+        console.log(this.name);
+
+    },
+};
+
+jhon.sayName.call(mac);
+
+// Mac Jag
+
+Que 10 
+
+const mac = {
+    name: "Mac Jag",
+    sayName: function (){
+        console.log(this.name);
+    },
+};
+
+setTimeout(mac.sayName, 3* 1000);
+
+//undefined
+
+Que 11 
+
+const obj = {
+    height : 30;
+
+};
+console.log(obj.height);
+
+delete obj.height;
+
+console.log(obj.height);
+
+// 30
+undefined
+

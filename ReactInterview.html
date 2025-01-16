@@ -1,0 +1,164 @@
+It supports server-side rendering.
+It will make use of the virtual DOM rather than real DOM (Data Object Model) as RealDOM manipulations are expensive.
+It follows unidirectional data binding or data flow.
+It uses reusable or composable UI components for developing the view.
+
+
+//Advantages
+Use of Virtual DOM to improve efficiency: React uses virtual DOM to render the view. As the name suggests, virtual DOM is a virtual representation of the real DOM. Each time the data changes in a react app, a new virtual DOM gets created. Creating a virtual DOM is much faster than rendering the UI inside the browser. Therefore, with the use of virtual DOM, the efficiency of the app improves.
+Gentle learning curve: React has a gentle learning curve when compared to frameworks like Angular. Anyone with little knowledge of javascript can start building web applications using React.
+SEO friendly: React allows developers to develop engaging user interfaces that can be easily navigated in various search engines. It also allows server-side rendering, which boosts the SEO of an app.
+Reusable components: React uses component-based architecture for developing applications. Components are independent and reusable bits of code. These components can be shared across various applications having similar functionality. The re-use of components increases the pace of development.
+Huge ecosystem of libraries to choose from: React provides you with the freedom to choose the tools, libraries, and architecture for developing an application based on your requirement.
+
+useState is a React Hook that allows you to add state to a functional component. It returns an array with two elements: the current state value and a function to update it.
+
+const [state, setState] = useState(initialValue);
+import React, { useState } from 'react';
+
+function Counter() {
+    const [count, setCount] = useState(0); // Initial state is 0
+
+    return (
+        <div>
+            <p>Current Count: {count}</p>
+            <button onClick={() => setCount(count + 1)}>Increment</button>
+        </div>
+    );
+}
+
+
+Keys are unique identifiers used in React to help identify which items in a list have changed, been added, or removed. They improve the performance of rendering lists by giving React the ability to update only the changed elements instead of re-rendering the entire list.
+
+function ListWithKeys() {
+    const items = ['Apple', 'Banana', 'Cherry'];
+
+    return (
+        <ul>
+            {items.map((item, index) => (
+                <li key={index}>{item}</li> // Using index as a key
+            ))}
+        </ul>
+    );
+}
+
+JSX (JavaScript XML) is a syntax extension for JavaScript used in React. It allows you to write HTML-like code directly in JavaScript, making it easier to create and structure UI components.
+
+function Greeting() {
+    return <h1>Hello, World!</h1>;
+}
+
+
+Aspect	                             Class Components	                                      Functional Components
+Definition	                    ES6 classes that extend React.Component.	                  JavaScript functions that return JSX.
+State	                        Use this.state for managing state.	                          Use useState (React Hooks) for managing state.
+Lifecycle Methods              	Have methods like componentDidMount, render, etc.	          Use useEffect for lifecycle behavior.
+Syntax	                        More verbose and requires render() method for JSX.	          Simpler and concise syntax.
+Performance                  	Slightly heavier due to class overhead.	                      Lighter and easier to test/debug.
+
+React uses two virtual DOMs to render the user interface. One of them is used to store the current state of the objects and the other to store the previous state of the objects. Whenever the virtual DOM gets updated, react compares the two virtual DOMs and gets to know about which virtual DOM objects were updated. After knowing which objects were updated, react renders only those objects inside the real DOM instead of rendering the complete real DOM. This way, with the use of virtual DOM, react solves the problem of inefficient updating
+
+
+
+Props in React
+Definition:
+Props (short for "properties") are read-only inputs passed from a parent component to a child component. They allow components to be dynamic and reusable by passing data or functions as arguments. Props are immutable and are used to configure or customize a child component.
+
+// Child Component
+function Greeting(props) {
+    return <h1>Hello, {props.name}!</h1>;
+}
+
+// Parent Component
+function App() {
+    return (
+        <div>
+            <Greeting name="Makarand" />
+            <Greeting name="Jagadale" />
+        </div>
+    );
+}
+
+export default App;
+
+
+Feature	                                    State	                                       Props
+Definition	                        Internal data storage for a component.	            External data passed to a component.
+Mutability	                        Mutable, can be updated with setState or useState.	Immutable, cannot be modified by the receiving component.
+Scope                           	Scoped to the component that defines it.	        Passed from parent to child components.
+Use Case	                        Managing interactivity or dynamic changes in the component.	Customizing child components with input data.
+
+Prop drilling refers to the process of passing data (props) from a parent component to deeply nested child components through multiple layers, even if intermediate components do not need the data.
+
+function Grandparent() {
+    const message = "Hello from Grandparent!";
+
+    return <Parent message={message} />;
+}
+
+function Parent({ message }) {
+    return <Child message={message} />;
+}
+
+function Child({ message }) {
+    return <h1>{message}</h1>;
+}
+
+export default Grandparent;
+
+React Hooks are functions that let you use state and other React features in functional components without needing to write class components. Common hooks include useState, useEffect, useContext, etc.
+
+
+
+The useEffect hook in React is used to perform side effects in functional components. It allows you to run code after the component renders, such as fetching data, updating the DOM, or setting up subscriptions.
+
+import React, { useState, useEffect } from "react";
+
+function DataFetcher() {
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+        // This will run once when the component mounts
+        fetch("https://api.example.com/data")
+            .then((response) => response.json())
+            .then((data) => setData(data));
+    }, []); // Empty dependency array ensures the effect runs only once after initial render
+
+    return (
+        <div>
+            <h1>Fetched Data:</h1>
+            <pre>{JSON.stringify(data, null, 2)}</pre>
+        </div>
+    );
+}
+
+export default DataFetcher;
+
+
+
+Why React Hooks Make Use of Refs
+In React, Refs (short for references) are used to directly interact with a DOM element or a class component instance. They provide a way to access and modify a DOM node or a React component instance without relying on the React state. This is particularly useful when we need to:
+
+Access DOM elements directly: Sometimes, you may need to directly interact with DOM elements (e.g., focusing on an input field, measuring element dimensions).
+
+Persist values across renders: useRef allows you to store values that don't trigger a re-render when they change. This is useful for keeping track of values between renders, like previous props or states, without causing unnecessary re-renders.
+
+
+import React, { useRef } from 'react';
+
+function FocusInput() {
+  const inputRef = useRef(null);
+
+  const focusInput = () => {
+    inputRef.current.focus(); // Directly access the DOM element and focus it
+  };
+
+  return (
+    <div>
+      <input ref={inputRef} type="text" />
+      <button onClick={focusInput}>Focus the input</button>
+    </div>
+  );
+}
+
+export default FocusInput;

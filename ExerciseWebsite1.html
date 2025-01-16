@@ -1,0 +1,178 @@
+CREATE TABLE pets (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    breed VARCHAR(50),
+    coloration VARCHAR(50),
+    age INT,
+    fav_toy VARCHAR(50)
+);
+
+
+//
+
+INSERT INTO pets (id, name, breed, coloration, age, fav_toy) VALUES
+(1, 'Micky', 'Maine Coon', 'tortoiseshell', 3, 'ball - red'),
+(2, 'Nine', 'Ragamuffin', 'cream', 2, 'ball - green'),
+(3, 'Carmen', 'Persian', 'brown', 2, 'toy mouse'),
+(4, 'Luna', 'Abyssinian', 'tortoiseshell', 12, 'teaser'),
+(5, 'Bella', 'Siamese', 'red', 15, 'teaser');
+
+//
+
+Auto-incrementing id: If you omit the id column in the INSERT statements, PostgreSQL will automatically generate the id values due to the SERIAL type.
+
+
+SELECT *
+FROM cat;   // Getting to know the data
+
+SELECT name, age
+FROM cat;     // Selecting specific columns from the table
+
+SELECT *
+FROM cat
+WHERE breed = 'Siamese';  //  get a specific name 
+
+SELECT * 
+FROM cat
+WHERE age < 8;
+
+SELECT 
+FROM cat
+WHERE breed = 'Samiese'
+
+
+SELECT id, name
+FROM cat
+WHERE breed = 'Siamese'
+OR breed = 'Persian'; // Siamese OR Persian
+
+
+SELECT id, name
+FROM cat
+WHERE (breed = 'Siamese' OR breed = 'Persian')
+AND (age < 5 OR age > 10); // Combining various statements
+
+
+SELECT id, name
+FROM cat
+WHERE breed IN ('Persian', 'Siamese', 'Ragdoll');    Instead of writing WHERE breed = 'Persian' OR breed = 'Siamese' OR breed = 'Ragdoll'
+
+
+SELECT *
+FROM cat
+WHERE fav_toy LIKE '%ball%';  LIKE '%ball'  this is ends with ball 
+
+SELECT name
+FROM cat
+WHERE fav_toy IS NULL;     WHERE fav_toy = NULL ; dosent work as postgres cant resolve NULL = NULL
+
+SELECT name
+FROM cat
+WHERE fav_toy IS NOT NULL;
+
+SELECT name, age
+FROM cat
+ORDER BY age;       // gets the ascending age sorting
+ORDER BY age desc;  // otherwise
+
+SELECT breed, name, age
+FROM cat
+ORDER BY breed, age;   // alphabetical sorting only 
+
+SELECT breed, name, age
+FROM cat
+ORDER BY breed ASC, age DESC;  sorts primary with alphabets and then desc with age but in only if multiple values are present duplicates.
+
+SELECT breed, COUNT(*)   // counts the number of rows or that particular GROUP
+FROM cat
+GROUP BY breed;      for eg in this column if there are 2 same names it will written rows as 2 else 1 
+
+
+SELECT breed, MIN(age), MAX(age)
+FROM cat
+GROUP BY breed;
+
+
+SELECT
+  breed,
+  coloration,
+  COUNT(*)
+FROM cat
+GROUP BY breed, coloration;
+
+SELECT breed, COUNT(*)
+FROM cat
+GROUP BY breed
+HAVING COUNT(*) > 1;
+
+SELECT cat.name, cat.breed, breed_origin.origin
+FROM cat
+JOIN breed_origin
+ON cat.breed = breed_origin.breed;
+
+SELECT columns
+FROM table1
+JOIN table2
+ON table1.common_column = table2.common_column;  syntax
+
+SELECT cat.name, cat.breed, breed_origin.origin
+FROM cat
+RIGHT JOIN breed_origin
+ON cat.breed = breed_origin.breed;
+
+SELECT cat.name, cat.breed, breed_origin.origin
+FROM cat
+LEFT JOIN breed_origin
+ON cat.breed = breed_origin.breed;
+
+
+SELECT cat.name, cat.breed, breed_origin.origin
+FROM cat
+FULL OUTER JOIN breed_origin
+ON cat.breed = breed_origin.breed;
+
+
+
+
+
+Join Type	Description
+INNER JOIN	Matches rows in both tables based on a condition.
+LEFT JOIN	All rows from the left table, matching or not.
+RIGHT JOIN	All rows from the right table, matching or not.
+FULL OUTER JOIN	All rows from both tables, matching or not.
+SELF JOIN	A table joined with itself.
+CROSS JOIN	Cartesian product of two tables.
+NATURAL JOIN	Auto-join based on matching column names.
+
+
+
+
+CREATE TABLE cars (
+  brand VARCHAR(255),
+  model VARCHAR(255),
+  year INT
+);
+
+INSERT INTO cars (brand, model, year)
+VALUES
+  ('Volvo', 'p1800', 1968),
+  ('BMW', 'M1', 1978),
+  ('Toyota', 'Celica', 1975);
+
+alter TABLE cars 
+add color VARCHAR(255);
+
+update cars 
+set color='red',year=1976
+where brand='Volvo';
+
+alter TABLE cars 
+alter column color type VARCHAR(10);
+
+alter table cars
+drop column color;
+
+delete from cars
+where brand='Volvo';
+
+select * from cars;

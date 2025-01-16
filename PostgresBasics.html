@@ -1,0 +1,52 @@
+// Data Types
+
+Data Type	Description	Range/Size
+SMALLINT	Small integer	-32,768 to 32,767 (2 bytes)
+INTEGER	Standard integer	-2,147,483,648 to 2,147,483,647 (4 bytes)
+BIGINT	Large integer	-9,223,372,036,854,775,808 to 9,223,372,036,854,775,807 (8 bytes)
+DECIMAL(p,s)	Exact numeric with precision and scale	User-defined precision
+NUMERIC(p,s)	Exact numeric, same as DECIMAL	User-defined precision
+REAL	Floating-point number, single precision	4 bytes
+DOUBLE PRECISION	Floating-point number, double precision	8 bytes
+SERIAL	Auto-incrementing 4-byte integer	1 to 2,147,483,647
+BIGSERIAL	Auto-incrementing 8-byte integer	1 to 9,223,372,036,854,775,807
+
+
+2. Character Data Types
+Used for text data.
+
+Data Type	Description	Example
+CHAR(n)	Fixed-length string	'abc ' (padded with spaces)
+VARCHAR(n)	Variable-length string with a limit	'abc'
+TEXT	Variable-length string with no limit	'This is a text'
+
+
+//
+
+3. Boolean Data Type
+Used for true/false values.
+
+Data Type	Description	Values
+BOOLEAN	Logical boolean	TRUE, FALSE, NULL
+
+
+Data Type	Description	Example
+DATE	Calendar date	'2025-01-04'
+TIME	Time of day (no time zone)	'13:45:30'
+TIMESTAMP	Date and time (no time zone)	'2025-01-04 13:45:30'
+TIMESTAMPTZ	Date and time with time zone	'2025-01-04 13:45:30+05:30'
+INTERVAL	Time span	'1 year 2 months'
+
+
+//
+
+
+Data Type	Description	Example
+POINT	Point in 2D space	(1,2)
+LINE	Infinite line	{1,2,3}
+LSEG	Line segment	[(1,2),(3,4)]
+BOX	Rectangular box	((1,2),(3,4))
+CIRCLE	Circle with center/radius	<(1,2),5>
+
+//
+

@@ -1,0 +1,45 @@
+select * from cd.facilities   // Retrieving all the data from the table 
+
+select name , membercost from cd.facilities;          // Retrieve Specific Column from the table 
+
+select * from cd.facilities where membercost > 0;     // Control which rows are retrieved 
+
+
+select facid, name, membercost, monthlymaintenance 
+	from cd.facilities 
+	where 
+		membercost > 0 and 
+		(membercost < monthlymaintenance/50.0);      // Control which rows are retrieved 
+
+
+select * from cd.facilities where name like '%Tennis%';  // Retrive data with specific name 
+
+select *
+	from cd.facilities 
+	where 
+		facid in (1,5);       // Also can be written as where facid = 1 or facid = 5.
+
+select memid, surname, firstname, joindate 
+from cd.members
+where joindate >= '2012-09-01';    // Get results greater with this date.
+
+select distinct surname 
+	from cd.members
+order by surname
+limit 10;                    get first 10 is due limit
+
+
+select surname 
+	from cd.members
+union
+select name
+	from cd.facilities;    Combine two sql queries in a single table 
+
+select max(joindate) as latest
+from cd.members;                                     // get the latest table last 
+
+select firstname, surname, joindate
+	from cd.members
+	where joindate = 
+		(select max(joindate) 
+			from cd.members);                        // Get three tables with last join date;
