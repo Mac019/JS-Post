@@ -1,0 +1,91 @@
+Why Java is not completely Object Oriented ?
+
+Primitive Data Types: Java includes eight primitive data types (e.g., int, char, float, boolean) that are not objects. This breaks the pure object-oriented principle where everything should be represented as an object.
+
+Static Members: Static methods and variables in Java are not tied to any specific instance of a class and can be accessed without creating objects. This goes against the object-oriented concept where behavior and data should belong to objects.
+
+Operator Overloading: Java does not support operator overloading (except for the + operator for string concatenation), limiting the ability to use objects in mathematical or custom operations in a purely object-oriented manner.
+
+Lack of Multiple Inheritance: Java uses interfaces to achieve multiple inheritance-like behavior but does not support multiple inheritance of classes, which is a feature of some object-oriented languages.
+
+Mix of Procedural and Object-Oriented Constructs: The main method, which is static and acts as the entry point of Java applications, is procedural in nature and does not follow object-oriented principles.
+
+Wrapper Classes for Primitives: While wrapper classes (e.g., Integer, Character, Boolean) provide an object-oriented way to handle primitives, the coexistence of primitives and their wrappers reflects a partial adherence to object-oriented principles.
+
+
+Difference Between Final , Finalize and Finally Keywords :
+
+Aspect	                          final	           finalize	                 finally
+Type	Keyword	Method (from java.lang.Object)	Keyword
+Purpose	                      Used to declare constants, prevent inheritance, or method overriding.	Used for cleanup operations before an object is garbage collected.	Used to define a block of code that always executes after a try-catch.
+Usage with Variables	Makes the variable constant; its value cannot be changed after initialization.	Not applicable.	Not applicable.
+Usage with Methods	Prevents method overriding.	Not applicable.	Not applicable.
+Usage with Classes	Prevents a class from being subclassed (inherited).	Not applicable.	Not applicable.
+Execution Context	Compile-time feature.	Called by the garbage collector just before object destruction (not guaranteed to execute).	Runtime feature.
+Relation to Exceptions	No relation to exceptions.	No direct relation to exceptions.	Used with exceptions to ensure execution of cleanup code.
+Example	final int x = 10;
+final class MyClass {}	protected void finalize() { System.out.println("Cleanup"); }	try { ... } finally { ... }
+
+
+//Final
+
+// Using final with a variable
+final int MAX_VALUE = 100; // Value cannot be changed
+// MAX_VALUE = 200; // This will cause a compile-time error
+
+// Using final with a class
+final class FinalClass {
+    public void display() {
+        System.out.println("This is a final class.");
+    }
+}
+
+// Uncommenting this will cause an error because FinalClass cannot be subclassed.
+// class SubClass extends FinalClass {}
+
+// Using final with a method
+class ParentClass {
+    public final void show() {
+        System.out.println("This is a final method.");
+    }
+}
+
+class ChildClass extends ParentClass {
+    // Uncommenting this will cause an error because final methods cannot be overridden.
+    // public void show() {
+    //     System.out.println("Trying to override.");
+    // }
+}
+
+//Finalize
+
+class FinalizeExample {
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Finalize method called before object is garbage collected.");
+    }
+
+    public static void main(String[] args) {
+        FinalizeExample obj = new FinalizeExample();
+        obj = null; // Making the object eligible for garbage collection
+        System.gc(); // Suggesting garbage collection (not guaranteed)
+    }
+}
+
+
+Finally
+
+public class FinallyExample {
+    public static void main(String[] args) {
+        try {
+            int data = 10 / 0; // This will cause an exception
+        } catch (ArithmeticException e) {
+            System.out.println("Exception caught: " + e.getMessage());
+        } finally {
+            System.out.println("Finally block executed.");
+        }
+
+        System.out.println("Code execution continues.");
+    }
+}
+
