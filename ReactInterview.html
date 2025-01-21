@@ -95,7 +95,6 @@ function Grandparent() {
 
     return <Parent message={message} />;
 }
-
 function Parent({ message }) {
     return <Child message={message} />;
 }
@@ -123,6 +122,7 @@ function DataFetcher() {
             .then((response) => response.json())
             .then((data) => setData(data));
     }, []); // Empty dependency array ensures the effect runs only once after initial render
+
 
     return (
         <div>
@@ -152,6 +152,7 @@ function FocusInput() {
   const focusInput = () => {
     inputRef.current.focus(); // Directly access the DOM element and focus it
   };
+  function 
 
   return (
     <div>
