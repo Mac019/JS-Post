@@ -152,3 +152,39 @@ const numbers = [1, 2, 3, 4];
 const squares = numbers.map(num => num * num);
 console.log(squares); // Output: [1, 4, 9, 16]  // filter // reduce 
 
+
+
+
+
+
+let a = 20;
+
+b = a;
+
+b = 30;
+console.log(a); // 20 
+console.log(a); // 30
+
+not with the objects and arrays
+
+let obj1 = {
+  name : "Makarand";
+}
+
+let obj2 = obj1 ;
+obj2.name = "Vrushab";
+
+console.log(obj1); // Vrushab
+console.log(obj2); // Vrushab
+
+
+strict mode in  js 
+duplicate arguments arenotnallowd 
+js key words cant be the function names or the parameters
+Not allowed to create global ariables
+
+
+function (name){
+  return function(value);
+  return name * value;
+}

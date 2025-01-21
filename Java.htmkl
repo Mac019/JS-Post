@@ -1,0 +1,404 @@
+Final , Finally  & Fnalize 
+
+final int MAX_VALUE = 100; // A constant 
+final class MyClass { }    // Cannot be inherited                           // Final
+
+
+try {
+    int result = 10 / 0; // Throws ArithmeticException
+} catch (ArithmeticException e) {                                          // Finally
+    System.out.println("Exception caught!");
+} finally {
+    System.out.println("Finally block executed!");
+}
+
+
+class MyClass {
+    @Override
+    protected void finalize() throws Throwable {                           // Fianlize     
+        System.out.println("Object is being garbage collected.");
+    }
+}
+
+
+
+
+// Immutable class
+
+
+public final class ImmutablePerson {
+    private final String name;
+    private final int age;
+
+    // Constructor to initialize fields
+    public ImmutablePerson(String name, int age) {
+        this.name = name;
+        this.age = age;
+    }
+
+    // Getter methods
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    // No setter methods to modify fields
+}
+
+
+Singleton
+
+public class Singleton {
+    // Create the instance eagerly
+    private static final Singleton instance = new Singleton();
+
+    // Private constructor to prevent instantiation
+    private Singleton() {}
+
+    // Public method to provide the instance
+    public static Singleton getInstance() {
+        return instance;
+    }
+}
+ 
+
+
+
+Reasons Why String is Immutable in Java
+Reason	                    Explanation
+Security	                Strings often store sensitive data like passwords or network credentials. Immutability ensures that the value cannot be altered, preventing potential vulnerabilities.
+String Pool Efficiency	    Java uses a String Pool to store string literals. If strings were mutable, modifying one would affect all references to that string, disrupting the efficiency of the pool.
+Thread Safety	            Since strings are immutable, multiple threads can safely access and use the same String object without synchronization, ensuring no concurrency issues.
+Hashcode Consistency	    Immutability ensures that the hashcode of a string remains consistent. Modifying a string would change its hashcode, which could lead to issues in hash-based collections like HashMap.
+Simplified Design	        Immutability simplifies string handling, preventing unintended modifications and making it easier to reason about code.
+
+
+public class StringImmutabilityExample {
+    public static void main(String[] args) {
+        // Creating a string literal
+        String s1 = "Hello";
+
+        // Printing original string
+        System.out.println("Original String s1: " + s1);
+
+        // Assigning s1 to s2, both refer to the same object
+        String s2 = s1;
+
+        // Modifying s1 by appending another string (creating a new string object)
+        s1 = s1 + " World";
+
+        // Printing modified s1 (New string object)
+        System.out.println("Modified String s1: " + s1);
+
+        // s2 remains unchanged, still pointing to the original string object
+        System.out.println("String s2 (unchanged): " + s2);
+
+        // Comparing references of s1 and s2
+        System.out.println("Are s1 and s2 the same object? " + (s1 == s2));
+
+        // Demonstrating string pool behavior
+        String s3 = "Hello";
+        String s4 = "Hello";
+
+        // Comparing references of s3 and s4
+        System.out.println("Are s3 and s4 the same object? " + (s3 == s4)); // True, they refer to the same string pool object
+    }
+}
+
+
+Difference Between StringBuffer and StringBuilder in Bullet Points
+Thread Safety:
+
+StringBuffer: Thread-safe (synchronized methods), safe for use in multi-threaded environments.
+StringBuilder: Not thread-safe (no synchronization), faster in single-threaded environments.
+Performance:
+
+StringBuffer: Slower performance due to synchronization overhead.
+StringBuilder: Faster performance as it lacks synchronization overhead.
+Usage:
+
+StringBuffer: Use when thread safety is necessary, particularly in multi-threaded applications.
+StringBuilder: Use when thread safety is not a concern, particularly in single-threaded applications.
+Methods:
+
+StringBuffer: Contains synchronized methods to ensure thread safety.
+StringBuilder: Does not contain synchronized methods, leading to better performance in non-concurrent situations.
+Introduced In:
+
+StringBuffer: Introduced in JDK 1.0.
+StringBuilder: Introduced in JDK 1.5 for performance improvement in non-concurrent environments.
+Memory Allocation:
+
+StringBuffer: Less memory-efficient due to synchronization and thread management overhead.
+StringBuilder: More memory-efficient due to lack of synchronization.
+Use Case:
+
+StringBuffer: Ideal for multi-threaded applications where thread safety is needed.
+StringBuilder: Ideal for single-threaded applications or when thread safety is not needed.
+
+
+
+Wrapper Class in Java
+A wrapper class in Java is a class that "wraps" a primitive data type into an object. Java provides a wrapper class for each of the 8 primitive data types. These wrapper classes allow primitive types to be treated as objects, enabling the use of them in collections or other object-based APIs, where primitive types cannot be directly used.
+
+
+Primitive Type	Wrapper Class
+int             Integer
+char	        Character
+byte	        Byte
+short	        Short
+long	        Long
+float	        Float
+double	        Double
+boolean	        Boolean
+
+
+public class WrapperExample {
+    public static void main(String[] args) {
+        // Primitive type
+        int num = 5;
+        
+        // Wrapping primitive type into an Integer object (Autoboxing)
+        Integer numWrapper = Integer.valueOf(num);
+        
+        // Unboxing: Converting Integer object back to primitive type
+        int unboxedNum = numWrapper.intValue();
+        
+        // Output
+        System.out.println("Primitive value: " + num);
+        System.out.println("Wrapped value (Integer): " + numWrapper);
+        System.out.println("Unboxed value: " + unboxedNum);
+    }
+}
+
+Primitive value: 5
+Wrapped value (Integer): 5
+Unboxed value: 5
+
+
+Abstract Classes and Interfaces 
+
+
+abstract class Animal {
+    String name;
+    
+    abstract void sound();  // Abstract method
+    
+    public void eat() {  // Concrete method
+        System.out.println("This animal eats food.");
+    }
+}
+
+class Dog extends Animal {
+    void sound() {
+        System.out.println("Woof");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        myDog.sound();  // Output: Woof
+        myDog.eat();    // Output: This animal eats food.
+    }
+}
+
+//Interface Example
+
+interface Animal {
+    void sound();  // Abstract method
+    
+    default void eat() {  // Default method (Java 8+)
+        System.out.println("This animal eats food.");
+    }
+}
+
+class Dog implements Animal {
+    public void sound() {
+        System.out.println("Woof");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal myDog = new Dog();
+        myDog.sound();  // Output: Woof
+        myDog.eat();    // Output: This animal eats food.
+    }
+}
+
+
+Difference Between Abstract Class and Interface (in Bullet Points)
+Abstract Class:
+Can have both abstract (without implementation) and concrete (with implementation) methods.
+Can have instance variables (fields).
+Can have constructors.
+A class can extend only one abstract class (single inheritance).
+Can have access modifiers for methods and fields (e.g., private, protected, public).
+Used when you want to share code among related classes.
+Methods may or may not be abstract.
+Cannot extend other interfaces (only one class).
+
+Interface:
+All methods are implicitly abstract (until Java 8; after which default/static methods are allowed).
+Can only have constants (public static final variables).
+Cannot have constructors.
+A class can implement multiple interfaces (multiple inheritance).
+Methods are implicitly public; fields are implicitly public static final.
+Used to define a contract that classes must adhere to.
+Methods in interfaces can be default or static (since Java 8).
+Cannot provide method implementation unless default/static methods are used.
+
+
+
+
+Java does not support multiple inheritance (where a class can inherit from more than one class) for the following reasons:
+
+1. Avoiding Diamond Problem:
+Diamond problem occurs when a class inherits from two classes that have a common ancestor, leading to ambiguity. For example, if both parent classes define a method with the same name, the child class wouldn't know which method to inherit. This causes confusion in the code.
+Java avoids this issue by only allowing a class to inherit from one class at a time, thus preventing potential conflicts.
+2. Simplifying the Design:
+Multiple inheritance complicates the class hierarchy, making it harder to understand and maintain.
+By limiting inheritance to one class, Java encourages clear and simpler design, where each class has a single responsibility.
+3. Encouraging Composition Over Inheritance:
+Java encourages the use of composition rather than inheritance. You can create complex behavior by combining objects with different functionalities (through interfaces or other classes) instead of using inheritance.
+This promotes a more flexible and modular approach, where you can reuse objects without being tied to an inheritance hierarchy.
+4. Method Resolution Ambiguity:
+In the case of multiple inheritance, if both parent classes have a method with the same signature, it would be unclear which method the child class should inherit. Java's single inheritance model avoids this ambiguity.
+5. Use of Interfaces to Achieve Multiple Inheritance-like Behavior:
+Although Java does not support multiple inheritance for classes, it allows a class to implement multiple interfaces. This provides a way to achieve multiple inheritance-like behavior without the complications of inheriting implementation from multiple classes.
+Interfaces allow a class to inherit abstract methods from multiple sources and provide its own implementation. This solves the problem of multiple inheritance by only inheriting the method signatures, not the implementation.
+
+
+interface Animal {
+    void sound();
+}
+
+interface Bird {
+    void fly();
+}
+
+class Parrot implements Animal, Bird {
+    public void sound() {
+        System.out.println("Parrot makes a sound");
+    }
+    
+    public void fly() {
+        System.out.println("Parrot is flying");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Parrot parrot = new Parrot();
+        parrot.sound(); // Output: Parrot makes a sound
+        parrot.fly();   // Output: Parrot is flying
+    }
+}
+
+
+Java Thread Life Cycle
+
+
+           +----------------+
+           |     New        |
+           +----------------+
+                  |
+                  v
+           +----------------+
+           |   Runnable     |
+           +----------------+
+           /       |        \
+          v        v         v
+ +----------------+    +----------------+     +-----------------+
+ |    Blocked     |    |    Waiting     |     | Timed Waiting   |
+ +----------------+    +----------------+     +-----------------+
+                        (join, wait, sleep)
+                             |
+                             v
+                    +-----------------+
+                    |    Terminated   |
+                    +-----------------+
+
+class MyThread extends Thread {
+    public void run() {
+        try {
+            System.out.println("Thread is in Running state.");
+            Thread.sleep(2000);  // Timed Waiting
+            System.out.println("Thread is in Timed Waiting state for 2 seconds.");
+        } catch (InterruptedException e) {
+            System.out.println("Thread interrupted.");
+        }
+        System.out.println("Thread is in Terminated state.");
+    }
+}
+
+public class ThreadLifeCycleExample {
+    public static void main(String[] args) {
+        MyThread t1 = new MyThread();
+        System.out.println("Thread is in New state.");
+        t1.start();  // Moves the thread to Runnable state
+        System.out.println("Thread is in Runnable state.");
+    }
+}
+
+
+Feature	                               Method Overloading	                                 Method Overriding
+Definition	                           Same method name, but different parameters.	        Same method name and parameters, different class.
+Purpose	                               To perform a similar action with different input.	To modify or extend the behavior of a method in the subclass.
+Binding	                               Compile-time polymorphism (static binding).       	Run-time polymorphism (dynamic binding).
+Method Signature	                   Must differ in the number or type of parameters. a 	Must have the same method signature (name and parameters).
+Return Type                            Can be different, but it is not mandatory.	        Must be the same or covariant (subtype of superclass method's return type).
+Access Modifier	                       Can have different access modifiers (public, private, etc.).	Cannot have a more restrictive access modifier than the superclass method.
+Static Methods	                       Can be overloaded.	                                Cannot be overridden.
+Constructor	                           Constructor overloading is allowed.	                Constructors cannot be overridden.
+
+
+// Method Overloading
+class Calculator {
+    // Overloaded methods with different parameters
+    public int add(int a, int b) {
+        return a + b;
+    }
+
+    public double add(double a, double b) {
+        return a + b;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+        System.out.println(calc.add(10, 20));          // Calls the method with int parameters
+        System.out.println(calc.add(10.5, 20.5));      // Calls the method with double parameters
+    }
+}
+
+// Method Overriding
+
+class Animal {
+    public void sound() {
+        System.out.println("Animal makes a sound");
+    }
+}
+
+class Dog extends Animal {
+    @Override
+    public void sound() {
+        System.out.println("Dog barks");
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Animal animal = new Animal();
+        animal.sound();  // Calls Animal's sound method
+
+        Dog dog = new Dog();
+        dog.sound();     // Calls Dog's overridden sound method
+    }
+}
+
